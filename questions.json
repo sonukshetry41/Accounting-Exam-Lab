@@ -1,0 +1,145 @@
+[
+  {
+    "id": 1,
+    "kind": "SQL",
+    "case": "PwC Chinook",
+    "question": "How many rows are in the Invoice table?",
+    "file": "chinook.sqlite",
+    "hint": "Use a count of records, not a count of non-null values in an arbitrary column.",
+    "method": "SELECT COUNT(*) FROM Invoice;",
+    "check": "412",
+    "why": "A count of all rows is appropriate when every invoice is one record."
+  },
+  {
+    "id": 2,
+    "kind": "SQL",
+    "case": "PwC Chinook",
+    "question": "How many invoices have totals greater than $20?",
+    "file": "chinook.sqlite",
+    "hint": "Filter the Invoice table before counting. The condition is strictly greater than 20.",
+    "method": "SELECT COUNT(*) FROM Invoice WHERE Total > 20;",
+    "check": "4",
+    "why": "Check the difference between > and >=."
+  },
+  {
+    "id": 3,
+    "kind": "SQL",
+    "case": "PwC Chinook",
+    "question": "How many invoices have totals greater than $10 and less than $20?",
+    "file": "chinook.sqlite",
+    "hint": "Both inequalities must hold for the same row.",
+    "method": "SELECT COUNT(*) FROM Invoice WHERE Total > 10 AND Total < 20;",
+    "check": "60",
+    "why": "BETWEEN includes endpoints, so be careful."
+  },
+  {
+    "id": 4,
+    "kind": "SQL",
+    "case": "PwC Chinook",
+    "question": "How many invoices are from customers in Brazil, Argentina, or Chile?",
+    "file": "chinook.sqlite",
+    "hint": "The provided answers use invoice billing country.",
+    "method": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry IN ('Brazil','Argentina','Chile');",
+    "check": "49",
+    "why": "IN is useful for several allowed categories."
+  },
+  {
+    "id": 5,
+    "kind": "SQL",
+    "case": "PwC Chinook",
+    "question": "How many invoices have a billing country starting with C?",
+    "file": "chinook.sqlite",
+    "hint": "Look for a text prefix using LIKE.",
+    "method": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry LIKE 'C%';",
+    "check": "77",
+    "why": "The percent sign matches any following characters."
+  },
+  {
+    "id": 6,
+    "kind": "SQL",
+    "case": "PwC Chinook",
+    "question": "How many employees does Chinook have?",
+    "file": "chinook.sqlite",
+    "hint": "Count employee records.",
+    "method": "SELECT COUNT(*) FROM Employee;",
+    "check": "8",
+    "why": "Avoid counting joined records that can repeat employees."
+  },
+  {
+    "id": 7,
+    "kind": "SQL",
+    "case": "PwC Chinook",
+    "question": "How many invoice line items are there?",
+    "file": "chinook.sqlite",
+    "hint": "An invoice line is not the same as an invoice.",
+    "method": "SELECT COUNT(*) FROM InvoiceLine;",
+    "check": "2240",
+    "why": "Choose the correct table for the unit being counted."
+  },
+  {
+    "id": 8,
+    "kind": "Excel",
+    "case": "ETL Case 2",
+    "question": "Extract Location, EmpID, PlantID and PayPeriod from EmployeeCode, then create LocationPlantID.",
+    "file": "etl_case2.xlsx",
+    "hint": "Compare fixed-width text-to-columns with formulas; preserve formulas in the required solution columns.",
+    "method": "LEFT, MID, FIND, RIGHT and concatenation are the relevant functions.",
+    "check": "Self-check: extracted fields match the original code and formula cells remain formulas.",
+    "why": "A correct-looking pasted value does not satisfy a formula-retention requirement."
+  },
+  {
+    "id": 9,
+    "kind": "Excel",
+    "case": "ETL Case 3",
+    "question": "Handle inconsistent code lengths and weekly/monthly labels when extracting employee identifiers.",
+    "file": "etl_case3.xlsx",
+    "hint": "Unlike Case 2, fixed positions are unreliable; identify separators and variable lengths.",
+    "method": "Use MID, MIN, FIND, LEFT, RIGHT, IF, ISNUMBER, VALUE and concatenation as needed.",
+    "check": "Self-check: irregular examples are parsed correctly and formulas remain in the solution.",
+    "why": "Test a typical row and an irregular row before filling down."
+  },
+  {
+    "id": 10,
+    "kind": "Excel",
+    "case": "ETL Case 4",
+    "question": "Build a flat journal-entry file containing line items and lookup fields from other sheets.",
+    "file": "etl_case4.xlsx",
+    "hint": "Keep all 789 line items and use lookup keys rather than matching row positions.",
+    "method": "INDEX/MATCH can handle lookup columns that VLOOKUP cannot.",
+    "check": "Self-check: 789 line items remain and lookups work on reordered source rows.",
+    "why": "A join can silently duplicate or drop accounting transactions."
+  },
+  {
+    "id": 11,
+    "kind": "Excel",
+    "case": "IntegrateCo",
+    "question": "Compare payroll between the first six months of 2015 and 2016, accounting for changed source-system formats.",
+    "file": "payroll2015.xlsx",
+    "hint": "Check whether similarly named fields have equivalent meanings before aggregating.",
+    "method": "Normalize formats and job identifiers; reconcile totals before explaining differences.",
+    "check": "Self-check: a reconciliation table identifies differences by pay components or job categories.",
+    "why": "A year-over-year total alone cannot explain what caused the difference."
+  },
+  {
+    "id": 12,
+    "kind": "SQL",
+    "case": "P-Card audit",
+    "question": "Identify card transactions that exceed a chosen policy threshold and explain what the exceptions mean.",
+    "file": "pcards.db",
+    "hint": "Inspect the database schema and define the threshold explicitly before querying.",
+    "method": "Filter on transaction amount; document threshold and review possible split purchases separately.",
+    "check": "Self-check: your query runs, your threshold is visible, and you distinguish flags from confirmed violations.",
+    "why": "An exception is a lead for audit investigation, not proof of wrongdoing."
+  },
+  {
+    "id": 13,
+    "kind": "Excel",
+    "case": "Restaurant regression",
+    "question": "Prepare a 7-day-ahead sales prediction using merged restaurant data, and explain uncertainty to Bob.",
+    "file": "restaurant.xlsm",
+    "hint": "Join the three source sheets at the correct grain, then fit regression in Excel.",
+    "method": "Document the prediction date, model, inputs and uncertainty; test game-day effects.",
+    "check": "Self-check: prediction uses only information available at forecast time; communicate assumptions.",
+    "why": "Avoid leakage from future sales into a forecast."
+  }
+]
