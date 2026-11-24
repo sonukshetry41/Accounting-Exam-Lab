@@ -8,7 +8,10 @@
     "hint": "Use a count of records, not a count of non-null values in an arbitrary column.",
     "method": "SELECT COUNT(*) FROM Invoice;",
     "check": "412",
-    "why": "A count of all rows is appropriate when every invoice is one record."
+    "why": "A count of all rows is appropriate when every invoice is one record.",
+    "answer": "412",
+    "prompt": "Enter the number of records.",
+    "type": "number"
   },
   {
     "id": 2,
@@ -19,7 +22,10 @@
     "hint": "Filter the Invoice table before counting. The condition is strictly greater than 20.",
     "method": "SELECT COUNT(*) FROM Invoice WHERE Total > 20;",
     "check": "4",
-    "why": "Check the difference between > and >=."
+    "why": "Check the difference between > and >=.",
+    "answer": "4",
+    "prompt": "Enter the number of records.",
+    "type": "number"
   },
   {
     "id": 3,
@@ -30,7 +36,10 @@
     "hint": "Both inequalities must hold for the same row.",
     "method": "SELECT COUNT(*) FROM Invoice WHERE Total > 10 AND Total < 20;",
     "check": "60",
-    "why": "BETWEEN includes endpoints, so be careful."
+    "why": "BETWEEN includes endpoints, so be careful.",
+    "answer": "60",
+    "prompt": "Enter the number of records.",
+    "type": "number"
   },
   {
     "id": 4,
@@ -41,7 +50,10 @@
     "hint": "The provided answers use invoice billing country.",
     "method": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry IN ('Brazil','Argentina','Chile');",
     "check": "49",
-    "why": "IN is useful for several allowed categories."
+    "why": "IN is useful for several allowed categories.",
+    "answer": "49",
+    "prompt": "Enter the number of records.",
+    "type": "number"
   },
   {
     "id": 5,
@@ -52,7 +64,10 @@
     "hint": "Look for a text prefix using LIKE.",
     "method": "SELECT COUNT(*) FROM Invoice WHERE BillingCountry LIKE 'C%';",
     "check": "77",
-    "why": "The percent sign matches any following characters."
+    "why": "The percent sign matches any following characters.",
+    "answer": "77",
+    "prompt": "Enter the number of records.",
+    "type": "number"
   },
   {
     "id": 6,
@@ -63,7 +78,10 @@
     "hint": "Count employee records.",
     "method": "SELECT COUNT(*) FROM Employee;",
     "check": "8",
-    "why": "Avoid counting joined records that can repeat employees."
+    "why": "Avoid counting joined records that can repeat employees.",
+    "answer": "8",
+    "prompt": "Enter the number of records.",
+    "type": "number"
   },
   {
     "id": 7,
@@ -74,7 +92,10 @@
     "hint": "An invoice line is not the same as an invoice.",
     "method": "SELECT COUNT(*) FROM InvoiceLine;",
     "check": "2240",
-    "why": "Choose the correct table for the unit being counted."
+    "why": "Choose the correct table for the unit being counted.",
+    "answer": "2240",
+    "prompt": "Enter the number of records.",
+    "type": "number"
   },
   {
     "id": 8,
@@ -85,7 +106,10 @@
     "hint": "Compare fixed-width text-to-columns with formulas; preserve formulas in the required solution columns.",
     "method": "LEFT, MID, FIND, RIGHT and concatenation are the relevant functions.",
     "check": "Self-check: extracted fields match the original code and formula cells remain formulas.",
-    "why": "A correct-looking pasted value does not satisfy a formula-retention requirement."
+    "why": "A correct-looking pasted value does not satisfy a formula-retention requirement.",
+    "prompt": "For the first EmployeeCode JAP1080-19M, enter the extracted employee ID.",
+    "answer": "1080",
+    "type": "number"
   },
   {
     "id": 9,
@@ -96,7 +120,10 @@
     "hint": "Unlike Case 2, fixed positions are unreliable; identify separators and variable lengths.",
     "method": "Use MID, MIN, FIND, LEFT, RIGHT, IF, ISNUMBER, VALUE and concatenation as needed.",
     "check": "Self-check: irregular examples are parsed correctly and formulas remain in the solution.",
-    "why": "Test a typical row and an irregular row before filling down."
+    "why": "Test a typical row and an irregular row before filling down.",
+    "prompt": "For the first EmployeeCode Japan177-3Mo, enter the extracted location.",
+    "answer": "Japan",
+    "type": "text"
   },
   {
     "id": 10,
@@ -107,29 +134,39 @@
     "hint": "Keep all 789 line items and use lookup keys rather than matching row positions.",
     "method": "INDEX/MATCH can handle lookup columns that VLOOKUP cannot.",
     "check": "Self-check: 789 line items remain and lookups work on reordered source rows.",
-    "why": "A join can silently duplicate or drop accounting transactions."
+    "why": "A join can silently duplicate or drop accounting transactions.",
+    "prompt": "How many journal-entry line items should remain after merging?",
+    "answer": "789",
+    "type": "number"
   },
   {
     "id": 11,
     "kind": "Excel",
     "case": "IntegrateCo",
     "question": "Compare payroll between the first six months of 2015 and 2016, accounting for changed source-system formats.",
-    "file": "payroll2015.xlsx",
+    "file": "payroll2016.xlsx",
     "hint": "Check whether similarly named fields have equivalent meanings before aggregating.",
     "method": "Normalize formats and job identifiers; reconcile totals before explaining differences.",
     "check": "Self-check: a reconciliation table identifies differences by pay components or job categories.",
-    "why": "A year-over-year total alone cannot explain what caused the difference."
+    "why": "A year-over-year total alone cannot explain what caused the difference.",
+    "prompt": "Using the 2016 payroll file, calculate total Gross_Wages (two decimals).",
+    "answer": "1352789.75",
+    "type": "number",
+    "extraFile": "payroll2015.xlsx"
   },
   {
     "id": 12,
     "kind": "SQL",
     "case": "P-Card audit",
-    "question": "Identify card transactions that exceed a chosen policy threshold and explain what the exceptions mean.",
+    "question": "Identify card transactions above a practice threshold of $5,000 and explain what the exceptions mean.",
     "file": "pcards.db",
     "hint": "Inspect the database schema and define the threshold explicitly before querying.",
     "method": "Filter on transaction amount; document threshold and review possible split purchases separately.",
     "check": "Self-check: your query runs, your threshold is visible, and you distinguish flags from confirmed violations.",
-    "why": "An exception is a lead for audit investigation, not proof of wrongdoing."
+    "why": "An exception is a lead for audit investigation, not proof of wrongdoing.",
+    "prompt": "For a practice threshold of $5,000, how many transactions have Amount strictly greater than 5000?",
+    "answer": "1098",
+    "type": "number"
   },
   {
     "id": 13,
@@ -140,6 +177,9 @@
     "hint": "Join the three source sheets at the correct grain, then fit regression in Excel.",
     "method": "Document the prediction date, model, inputs and uncertainty; test game-day effects.",
     "check": "Self-check: prediction uses only information available at forecast time; communicate assumptions.",
-    "why": "Avoid leakage from future sales into a forecast."
+    "why": "Avoid leakage from future sales into a forecast.",
+    "prompt": "In salesData, how many data rows are present before merging (exclude the header)?",
+    "answer": "4610",
+    "type": "number"
   }
 ]
